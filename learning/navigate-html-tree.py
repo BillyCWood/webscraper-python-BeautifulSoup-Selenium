@@ -45,4 +45,8 @@ for tr in trs[:10]:
 
     prices[fixed_name] = fixed_price
 
-print(prices)
+k = 1
+
+for key in prices:
+    print((str(k) + ".").ljust(4), str(key).ljust(15), prices[key])
+    k+=1
