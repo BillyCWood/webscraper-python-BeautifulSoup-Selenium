@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
+import re
 
 
 url = "https://coinmarketcap.com/"
@@ -45,8 +46,22 @@ for tr in trs[:10]:
 
     prices[fixed_name] = fixed_price
 
+for tr in trs[10:]:
+    name, price = tr.contents[2:4]
+    fixed_name = name.find("span", string=re.compile("[A-Z]+")).string
+    fixed_price = price.text
+    prices[fixed_name] = fixed_price
+
 k = 1
 
+
+print()
+print("NAME".rjust(9), "PRICE".rjust(22))
+print("----".rjust(9), "-----".rjust(22))
 for key in prices:
-    print((str(k) + ".").ljust(4), str(key).ljust(15), prices[key])
+    print((str(k) + ".").ljust(4), str(key).ljust(21), prices[key])
     k+=1
+
+print()
+
+
